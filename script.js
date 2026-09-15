@@ -65,15 +65,64 @@ youtubeApi.src = 'https://www.youtube.com/iframe_api';
 youtubeApi.async = true;
 document.head.appendChild(youtubeApi);
 
-document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListener('click', () => {
-  videoTitle.textContent = card.dataset.title;
-  videoArtist.textContent = card.dataset.artist;
-  videoDate.textContent = card.dataset.date;
+function compactTitle(title) {
+  return title.replace(/【.*?】/g, '').trim();
+}
 
-  selectedVideoId = card.dataset.youtube;
+function compactArtist(artist) {
+  return artist.split('｜')[0].trim();
+}
+
+function readMiniCard(card) {
+  return {
+    id: card.dataset.youtube,
+    title: card.dataset.title,
+    artist: card.dataset.artist,
+    date: card.dataset.date,
+    duration: card.querySelector('.thumb i').textContent
+  };
+}
+
+function writeMiniCard(card, video) {
+  card.dataset.youtube = video.id;
+  card.dataset.title = video.title;
+  card.dataset.artist = video.artist;
+  card.dataset.date = video.date;
+
+  const image = card.querySelector('.thumb img');
+  image.src = `https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`;
+  image.alt = `${compactTitle(video.title)} 動画サムネイル`;
+
+  const duration = card.querySelector('.thumb i');
+  duration.textContent = video.duration;
+  duration.hidden = !video.duration;
+
+  const label = card.querySelector('b');
+  label.replaceChildren(
+    document.createTextNode(compactTitle(video.title)),
+    document.createElement('br'),
+    document.createTextNode(compactArtist(video.artist))
+  );
+  card.querySelector('small').textContent = video.date;
+}
+
+document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListener('click', () => {
+  const selectedVideo = readMiniCard(card);
+  const previousFeaturedVideo = {
+    id: selectedVideoId,
+    title: videoTitle.textContent,
+    artist: videoArtist.textContent,
+    date: videoDate.textContent,
+    duration: ''
+  };
+
+  videoTitle.textContent = selectedVideo.title;
+  videoArtist.textContent = selectedVideo.artist;
+  videoDate.textContent = selectedVideo.date;
+  selectedVideoId = selectedVideo.id;
+  writeMiniCard(card, previousFeaturedVideo);
+
   if (playerReady) youtubePlayer.cueVideoById(selectedVideoId);
 
-  document.querySelectorAll('[data-youtube]').forEach(item => item.classList.remove('is-active'));
-  card.classList.add('is-active');
   playerScene.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }));
