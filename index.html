@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="origin-when-cross-origin">
+  <meta name="description" content="わらびもちSOUND — 8bitアレンジとチップチューンミュージック">
+  <title>わらびもちSOUND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <header class="header">
+    <a class="brand" href="#top" aria-label="わらびもちSOUND ホーム">
+      <span class="brand__face">◉</span>
+      <span><strong>わらびもちSOUND</strong><small>8BIT ARRANGE / CHIPTUNE MUSIC</small></span>
+    </a>
+    <button class="menu" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="メインナビゲーション">
+      <a class="active" href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#works">WORKS</a><a href="#contact">CONTACT</a>
+    </nav>
+    <div class="social"><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="X">𝕏</a><a href="#" aria-label="Instagram">◎</a></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero__art">
+        <div class="moon">☾</div><div class="meteor">✦</div>
+        <div class="city" aria-hidden="true"></div>
+        <div class="mascot">
+          <div class="headphones">⌒</div><div class="face">•‿•</div>
+        </div>
+        <div class="pixel-title"><b>8bit</b><strong>SOUND</strong><span>わらびもちSOUND</span></div>
+      </div>
+      <div class="hero__copy">
+        <p class="eyebrow">SMALL SOUNDS.<br>A BIG ADVENTURE.</p>
+        <h1>あの名曲を、<br>ピコピコの音で<br>もう一度。</h1>
+        <p>ゲームのようにワクワクする音で<br>好きな音楽をもっと身近に。<br>わらびもちSOUNDは<br>アニメ・ゲーム・VTuber楽曲を中心に<br>8bitアレンジでお届けします。</p>
+        <a class="neon-button" href="#music"><span>▶</span> PLAY MUSIC</a>
+      </div>
+    </section>
+
+    <section class="categories" aria-label="カテゴリー">
+      <a class="cyan" href="#music"><span>🎮</span>GAME</a><a class="pink" href="#music"><span>♫</span>ANIME</a><a class="lime" href="#music"><span>♬</span>VTUBER</a><a class="yellow" href="#music"><span>☆</span>AND MORE...</a>
+    </section>
+
+    <section class="section" id="music">
+      <div class="section__head"><div><h2 style="font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace">LATEST VIDEO</h2><p>最新のアレンジ楽曲</p></div><a href="#works">VIEW ALL →</a></div>
+      <div class="videos">
+        <div class="featured-card">
+          <span class="featured-card__scene" id="player-scene"><iframe id="youtube-player" src="about:blank" title="ちゅきミー！｜月見パイもち子 8bitアレンジ" referrerpolicy="origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe><button class="video-poster" id="video-poster" type="button"><img id="video-poster-image" src="https://i.ytimg.com/vi/hy6rHiXSAjw/hqdefault.jpg" alt="ちゅきミー！ 動画サムネイル"><i class="play">▶</i><span class="poster-label">クリックしてページ内で再生</span></button></span>
+          <span class="featured-card__meta"><b id="video-title">ちゅきミー！｜月見パイもち子【8bit アレンジ】</b><small id="video-artist">CV：齋藤樹愛羅（＝LOVE）</small><em id="video-date">18時間前</em></span>
+        </div>
+        <div class="video-list">
+          <button class="mini-card" type="button" data-youtube="3ne0tzKJ0O0" data-title="雲を抜け風下へ私だけ【8bit アレンジ】" data-artist="ヨルシカ｜薬屋のひとりごと 第3期 OP" data-date="3週間前"><span class="thumb"><img src="https://i.ytimg.com/vi/3ne0tzKJ0O0/mqdefault.jpg" alt="雲を抜け風下へ私だけ 動画サムネイル"><i>1:18</i></span><b>雲を抜け風下へ私だけ<br>ヨルシカ</b><small>3週間前</small></button>
+          <button class="mini-card" type="button" data-youtube="5b-PBCK_UNg" data-title="星をみる少女【8bit アレンジ】" data-artist="星街すいせい｜hololive" data-date="4週間前"><span class="thumb"><img src="https://i.ytimg.com/vi/5b-PBCK_UNg/mqdefault.jpg" alt="星をみる少女 動画サムネイル"><i>1:37</i></span><b>星をみる少女<br>星街すいせい</b><small>4週間前</small></button>
+          <button class="mini-card" type="button" data-youtube="tW3OsiOpzaE" data-title="カウントダウンラブ【8bit アレンジ】" data-artist="I'm a Cutie Finder｜シャニソン" data-date="1か月前"><span class="thumb"><img src="https://i.ytimg.com/vi/tW3OsiOpzaE/mqdefault.jpg" alt="カウントダウンラブ 動画サムネイル"><i>3:05</i></span><b>カウントダウンラブ<br>I'm a Cutie Finder</b><small>1か月前</small></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="about__text"><h2>ABOUT</h2><h3>わらびもちSOUNDについて</h3><p>ホロライブの楽曲を中心に、アニメ・ゲーム・VTuber楽曲などを8bitサウンドでアレンジする音楽クリエイターです。<br>3和音＋ノイズ1音＝最大4音でつくる、ゲームボーイ・ファミコン風のピコピコサウンドで、懐かしいのに新しい音楽をお届けします。<br>音で、日常にワクワクを。</p><a class="neon-button small" href="#contact">MORE　→</a></div>
+      <div class="about__art"><div class="speech">LET'S<br>PLAY MUSIC<br>TOGETHER!</div><div class="mascot mascot--small"><div class="headphones">⌒</div><div class="face">•‿•</div></div><i>♫</i><i>♪</i></div>
+    </section>
+
+    <section class="section pickup" id="works">
+      <div class="section__head"><div><h2>PICK UP</h2><p>おすすめの再生リスト</p></div><a href="#">VIEW ALL →</a></div>
+      <div class="playlist-grid"><a class="cyan" href="#"><b>HOLOLIVE</b><small>ホロライブ楽曲</small><span>♬</span></a><a class="pink" href="#"><b>ANIME</b><small>アニメ楽曲</small><span>✿</span></a><a class="lime" href="#"><b>GAME</b><small>ゲーム楽曲</small><span>🎮</span></a><a class="yellow" href="#"><b>ORIGINAL</b><small>オリジナル・その他</small><span>🎧</span></a></div>
+    </section>
+  </main>
+
+  <footer id="contact"><div class="brand"><span class="brand__face">◉</span><span><strong>わらびもちSOUND</strong><small>8BIT ARRANGE / CHIPTUNE MUSIC</small></span></div><nav><a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#works">WORKS</a><a href="#contact">CONTACT</a></nav><div class="equalizer" aria-label="音楽イコライザー">▁▃▆▂▇▅▂▆▃▇▂</div><small>© 2024 わらびもちSOUND. All rights reserved.</small></footer>
+
+  <dialog id="player"><button class="close" aria-label="閉じる">×</button><span class="disc">♫</span><h2></h2><p>デモプレイヤー</p><div class="player-line"><i></i></div></dialog>
+  <script src="script.js"></script>
+</body>
+</html>
