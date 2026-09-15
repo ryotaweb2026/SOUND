@@ -40,8 +40,16 @@ window.onYouTubeIframeAPIReady = () => {
       onReady: event => {
         playerReady = true;
         playerLoading.hidden = true;
+        event.target.unMute();
+        event.target.setVolume(100);
         if (event.target.getVideoData().video_id !== selectedVideoId) {
           event.target.cueVideoById(selectedVideoId);
+        }
+      },
+      onStateChange: event => {
+        if (event.data === YT.PlayerState.PLAYING) {
+          event.target.unMute();
+          event.target.setVolume(100);
         }
       },
       onError: () => {
