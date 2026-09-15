@@ -22,40 +22,48 @@ player.addEventListener('click', event => {
 });
 
 const playerScene = document.querySelector('#player-scene');
-const youtubePlayer = document.querySelector('#youtube-player');
-const videoPoster = document.querySelector('#video-poster');
-const videoPosterImage = document.querySelector('#video-poster-image');
+const playerLoading = document.querySelector('#player-loading');
 const videoTitle = document.querySelector('#video-title');
 const videoArtist = document.querySelector('#video-artist');
 const videoDate = document.querySelector('#video-date');
+let youtubePlayer = null;
+let playerReady = false;
+let selectedVideoId = 'hy6rHiXSAjw';
 
-function showVideo(videoId, title) {
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&origin=${encodeURIComponent(window.location.origin)}&widget_referrer=${encodeURIComponent(window.location.href)}`;
-  youtubePlayer.src = 'about:blank';
-  youtubePlayer.title = title;
-  videoPosterImage.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-  videoPosterImage.alt = `${title} 動画サムネイル`;
-  videoPoster.setAttribute('aria-label', `${title}をページ内で再生`);
-  videoPoster.hidden = false;
-  videoPoster.onclick = () => {
-    videoPoster.classList.add('is-loading');
-    const handleLoad = () => {
-      videoPoster.hidden = true;
-      videoPoster.classList.remove('is-loading');
-    };
-    youtubePlayer.addEventListener('load', handleLoad, { once: true });
-    youtubePlayer.src = embedUrl;
-  };
-}
+window.onYouTubeIframeAPIReady = () => {
+  youtubePlayer = new YT.Player('youtube-player', {
+    videoId: selectedVideoId,
+    width: '100%',
+    height: '100%',
+    playerVars: { controls: 1, fs: 1, playsinline: 1, rel: 0, origin: window.location.origin },
+    events: {
+      onReady: event => {
+        playerReady = true;
+        playerLoading.hidden = true;
+        if (event.target.getVideoData().video_id !== selectedVideoId) {
+          event.target.cueVideoById(selectedVideoId);
+        }
+      },
+      onError: () => {
+        playerLoading.hidden = false;
+        playerLoading.textContent = '動画を読み込めませんでした。ページを再読み込みしてください。';
+      }
+    }
+  });
+};
 
-showVideo('hy6rHiXSAjw', 'ちゅきミー！｜月見パイもち子【8bit アレンジ】');
+const youtubeApi = document.createElement('script');
+youtubeApi.src = 'https://www.youtube.com/iframe_api';
+youtubeApi.async = true;
+document.head.appendChild(youtubeApi);
 
 document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListener('click', () => {
   videoTitle.textContent = card.dataset.title;
   videoArtist.textContent = card.dataset.artist;
   videoDate.textContent = card.dataset.date;
 
-  showVideo(card.dataset.youtube, card.dataset.title);
+  selectedVideoId = card.dataset.youtube;
+  if (playerReady) youtubePlayer.cueVideoById(selectedVideoId);
 
   document.querySelectorAll('[data-youtube]').forEach(item => item.classList.remove('is-active'));
   card.classList.add('is-active');
