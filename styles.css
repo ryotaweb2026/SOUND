@@ -23,3 +23,4 @@
 .stars{background-image:radial-gradient(#fff 1px,transparent 1px);background-size:53px 53px;background-position:4px 9px}
 .categories{margin-top:28px}
 @media(max-width:760px){.categories{margin-top:22px}}
+.categories a:nth-child(n+2) span{transform:translateY(4px)}
