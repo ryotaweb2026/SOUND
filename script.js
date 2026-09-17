@@ -22,12 +22,11 @@ player.addEventListener('click', event => {
 });
 
 const playerScene = document.querySelector('#player-scene');
-const playerLoading = document.querySelector('#player-loading');
+const youtubePlayerHost = document.querySelector('#youtube-player-host');
+const videoPoster = document.querySelector('#video-poster');
 const videoTitle = document.querySelector('#video-title');
 const videoArtist = document.querySelector('#video-artist');
 const videoDate = document.querySelector('#video-date');
-let youtubePlayer = null;
-let playerReady = false;
 let selectedVideoId = 'hy6rHiXSAjw';
 
 function formatRelativeDate(published, now = new Date()) {
@@ -51,40 +50,20 @@ function updateRelativeDates() {
 
 updateRelativeDates();
 
-window.onYouTubeIframeAPIReady = () => {
-  youtubePlayer = new YT.Player('youtube-player', {
-    videoId: selectedVideoId,
-    width: '100%',
-    height: '100%',
-    playerVars: { controls: 1, fs: 1, playsinline: 1, rel: 0, origin: window.location.origin },
-    events: {
-      onReady: event => {
-        playerReady = true;
-        playerLoading.hidden = true;
-        event.target.unMute();
-        event.target.setVolume(100);
-        if (event.target.getVideoData().video_id !== selectedVideoId) {
-          event.target.cueVideoById(selectedVideoId);
-        }
-      },
-      onStateChange: event => {
-        if (event.data === YT.PlayerState.PLAYING) {
-          event.target.unMute();
-          event.target.setVolume(100);
-        }
-      },
-      onError: () => {
-        playerLoading.hidden = false;
-        playerLoading.textContent = '動画を読み込めませんでした。ページを再読み込みしてください。';
-      }
-    }
-  });
-};
+function mountYoutubePlayer(videoId) {
+  const frame = document.createElement('iframe');
+  frame.id = 'youtube-player';
+  frame.title = `${compactTitle(videoTitle.textContent)} YouTube動画プレイヤー`;
+  frame.src = `https://ryotaweb2026.github.io/SOUND/player.html?v=${encodeURIComponent(videoId)}`;
+  frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  frame.allowFullscreen = true;
+  youtubePlayerHost.replaceChildren(frame);
+}
 
-const youtubeApi = document.createElement('script');
-youtubeApi.src = 'https://www.youtube.com/iframe_api';
-youtubeApi.async = true;
-document.head.appendChild(youtubeApi);
+videoPoster.addEventListener('click', () => {
+  videoPoster.hidden = true;
+  mountYoutubePlayer(selectedVideoId);
+});
 
 function compactTitle(title) {
   return title.replace(/【.*?】/g, '').trim();
@@ -143,7 +122,13 @@ document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListene
   selectedVideoId = selectedVideo.id;
   writeMiniCard(card, previousFeaturedVideo);
 
-  if (playerReady) youtubePlayer.cueVideoById(selectedVideoId);
+  youtubePlayerHost.replaceChildren(Object.assign(document.createElement('span'), { id: 'youtube-player' }));
+  const posterImage = videoPoster.querySelector('img');
+  posterImage.src = `https://i.ytimg.com/vi/${selectedVideoId}/maxresdefault.jpg`;
+  posterImage.alt = `${compactTitle(selectedVideo.title)} 動画サムネイル`;
+  videoPoster.setAttribute('aria-label', `${compactTitle(selectedVideo.title)}をページ内で再生`);
+  videoPoster.classList.remove('is-loading');
+  videoPoster.hidden = false;
 
   playerScene.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }));
