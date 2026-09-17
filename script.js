@@ -30,6 +30,27 @@ let youtubePlayer = null;
 let playerReady = false;
 let selectedVideoId = 'hy6rHiXSAjw';
 
+function formatRelativeDate(published, now = new Date()) {
+  const elapsedMinutes = Math.max(0, Math.floor((now - new Date(published)) / 60000));
+  if (elapsedMinutes < 60) return `${Math.max(1, elapsedMinutes)}分前`;
+  const hours = Math.floor(elapsedMinutes / 60);
+  if (hours < 24) return `${hours}時間前`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}日前`;
+  if (days < 30) return `${Math.floor(days / 7)}週間前`;
+  if (days < 365) return `${Math.floor(days / 30)}か月前`;
+  return `${Math.floor(days / 365)}年前`;
+}
+
+function updateRelativeDates() {
+  videoDate.textContent = formatRelativeDate(videoDate.dataset.published);
+  document.querySelectorAll('.mini-card').forEach(card => {
+    card.querySelector('small').textContent = formatRelativeDate(card.dataset.published);
+  });
+}
+
+updateRelativeDates();
+
 window.onYouTubeIframeAPIReady = () => {
   youtubePlayer = new YT.Player('youtube-player', {
     videoId: selectedVideoId,
@@ -78,7 +99,7 @@ function readMiniCard(card) {
     id: card.dataset.youtube,
     title: card.dataset.title,
     artist: card.dataset.artist,
-    date: card.dataset.date,
+    published: card.dataset.published,
     duration: card.querySelector('.thumb i').textContent
   };
 }
@@ -87,7 +108,7 @@ function writeMiniCard(card, video) {
   card.dataset.youtube = video.id;
   card.dataset.title = video.title;
   card.dataset.artist = video.artist;
-  card.dataset.date = video.date;
+  card.dataset.published = video.published;
 
   const image = card.querySelector('.thumb img');
   image.src = `https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`;
@@ -102,7 +123,7 @@ function writeMiniCard(card, video) {
     Object.assign(document.createElement('span'), { textContent: compactTitle(video.title) }),
     Object.assign(document.createElement('span'), { textContent: compactArtist(video.artist) })
   );
-  card.querySelector('small').textContent = video.date;
+  card.querySelector('small').textContent = formatRelativeDate(video.published);
 }
 
 document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListener('click', () => {
@@ -111,13 +132,14 @@ document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListene
     id: selectedVideoId,
     title: videoTitle.textContent,
     artist: videoArtist.textContent,
-    date: videoDate.textContent,
+    published: videoDate.dataset.published,
     duration: ''
   };
 
   videoTitle.textContent = selectedVideo.title;
   videoArtist.textContent = selectedVideo.artist;
-  videoDate.textContent = selectedVideo.date;
+  videoDate.dataset.published = selectedVideo.published;
+  videoDate.textContent = formatRelativeDate(selectedVideo.published);
   selectedVideoId = selectedVideo.id;
   writeMiniCard(card, previousFeaturedVideo);
 
