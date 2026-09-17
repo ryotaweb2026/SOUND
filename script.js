@@ -99,9 +99,8 @@ function writeMiniCard(card, video) {
 
   const label = card.querySelector('b');
   label.replaceChildren(
-    document.createTextNode(compactTitle(video.title)),
-    document.createElement('br'),
-    document.createTextNode(compactArtist(video.artist))
+    Object.assign(document.createElement('span'), { textContent: compactTitle(video.title) }),
+    Object.assign(document.createElement('span'), { textContent: compactArtist(video.artist) })
   );
   card.querySelector('small').textContent = video.date;
 }
