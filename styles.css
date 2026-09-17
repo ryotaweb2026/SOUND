@@ -29,5 +29,5 @@
 .social a{display:grid;place-items:center;width:27px;height:27px;overflow:hidden;background:none!important;padding:0!important;border-radius:0!important;font-size:0!important}
 .social img{display:block;width:23px;height:23px;object-fit:contain}
 .social a:first-child{width:30px;height:23px}
-.social a:first-child img{width:46px;height:40px;max-width:none}
-.social a:last-child img{width:25px;height:25px}
+.social a:first-child img{width:42px;height:36px;max-width:none}
+.social a:last-child img{width:28px;height:28px}
