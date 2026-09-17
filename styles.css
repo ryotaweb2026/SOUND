@@ -26,3 +26,8 @@
 .categories a:nth-child(n+2) span{transform:translateY(4px)}
 .hero__logo{display:block;width:min(82%,560px);height:auto;position:relative;z-index:2;transform:translateY(-56px);filter:drop-shadow(0 0 12px rgba(15,214,255,.25))}
 @media(max-width:760px){.hero__logo{width:min(88%,460px);transform:none}}
+.social a{display:grid;place-items:center;width:27px;height:27px;overflow:hidden;background:none!important;padding:0!important;border-radius:0!important;font-size:0!important}
+.social img{display:block;width:23px;height:23px;object-fit:contain}
+.social a:first-child{width:30px;height:23px}
+.social a:first-child img{width:46px;height:40px;max-width:none}
+.social a:last-child img{width:25px;height:25px}
