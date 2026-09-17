@@ -24,5 +24,5 @@
 .categories{margin-top:28px}
 @media(max-width:760px){.categories{margin-top:22px}}
 .categories a:nth-child(n+2) span{transform:translateY(4px)}
-.hero__logo{display:block;width:min(82%,560px);height:auto;position:relative;z-index:2;filter:drop-shadow(0 0 12px rgba(15,214,255,.25))}
-@media(max-width:760px){.hero__logo{width:min(88%,460px)}}
+.hero__logo{display:block;width:min(82%,560px);height:auto;position:relative;z-index:2;transform:translateY(-56px);filter:drop-shadow(0 0 12px rgba(15,214,255,.25))}
+@media(max-width:760px){.hero__logo{width:min(88%,460px);transform:none}}
