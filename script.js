@@ -54,7 +54,7 @@ function mountYoutubePlayer(videoId) {
   const frame = document.createElement('iframe');
   frame.id = 'youtube-player';
   frame.title = `${compactTitle(videoTitle.textContent)} YouTube動画プレイヤー`;
-  frame.src = `https://ryotaweb2026.github.io/SOUND/player.html?v=${encodeURIComponent(videoId)}`;
+  frame.src = `./player.html?v=${encodeURIComponent(videoId)}&rev=c0cf38c`;
   frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
   frame.allowFullscreen = true;
   youtubePlayerHost.replaceChildren(frame);
