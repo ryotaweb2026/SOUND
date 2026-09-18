@@ -21,7 +21,75 @@ player.addEventListener('click', event => {
   if (event.target === player) player.close();
 });
 
-const youtubePlayer = document.querySelector('#youtube-player');
+const videoHost = document.querySelector('#youtube-host');
+const videoStart = document.querySelector('#video-start');
+const videoPoster = document.querySelector('#video-poster');
+const videoStatus = document.querySelector('#video-status');
+let activePlayer;
+let loadTimer;
+let loadGeneration = 0;
+let apiPromise;
+function loadYouTubeAPI() {
+  if (window.YT?.Player) return Promise.resolve();
+  if (apiPromise) return apiPromise;
+  apiPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    const timer = setTimeout(() => reject(new Error('YouTube APIの読み込みが10秒以内に完了しませんでした')), 10000);
+    window.onYouTubeIframeAPIReady = () => { clearTimeout(timer); resolve(); };
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.onerror = () => { clearTimeout(timer); reject(new Error('YouTube APIに接続できませんでした')); };
+    document.head.append(script);
+  }).catch(error => { apiPromise = null; throw error; });
+  return apiPromise;
+}
+function resetVideo() {
+  loadGeneration++;
+  clearTimeout(loadTimer);
+  if (activePlayer) { activePlayer.destroy(); activePlayer = null; }
+  videoHost.replaceChildren();
+  videoStart.hidden = false;
+  videoStart.disabled = false;
+  videoPoster.src = `https://i.ytimg.com/vi/${selectedVideo.id}/hqdefault.jpg`;
+  videoPoster.alt = `${compactTitle(selectedVideo.title)} 動画サムネイル`;
+  videoStatus.textContent = 'クリックして再生';
+}
+videoStart.addEventListener('click', async () => {
+  if (location.protocol === 'file:') {
+    location.replace(`http://127.0.0.1:8873/?video=${encodeURIComponent(selectedVideo.id)}#music`);
+    return;
+  }
+  const generation = ++loadGeneration;
+  videoStart.disabled = true;
+  videoStatus.textContent = '動画を読み込み中…';
+  const fail = (reason) => {
+    if (generation !== loadGeneration) return;
+    resetVideo();
+    videoStatus.textContent = `読み込み失敗：${reason?.data ? `YouTubeエラー ${reason.data}` : reason?.message || 'プレーヤーが15秒以内に応答しませんでした'}。再試行する`;
+    console.warn('YouTube player failed', reason?.data || reason?.message || 'ready timeout');
+  };
+  loadTimer = setTimeout(fail, 15000);
+  try {
+    await loadYouTubeAPI();
+    if (generation !== loadGeneration) return;
+    const frame = document.createElement('iframe');
+    frame.id = 'youtube-player';
+    frame.title = `${compactTitle(selectedVideo.title)} YouTube動画プレイヤー`;
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.src = `https://www.youtube-nocookie.com/embed/${selectedVideo.id}?enablejsapi=1&playsinline=1&rel=0&origin=${encodeURIComponent(location.origin)}`;
+    videoHost.replaceChildren(frame);
+    activePlayer = new YT.Player(frame, { events: {
+      onReady(event) {
+        if (generation !== loadGeneration) return;
+        clearTimeout(loadTimer);
+        videoStart.hidden = true;
+        event.target.playVideo();
+      },
+      onError: fail
+    }});
+  } catch (error) { fail(error); }
+});
 const videoTitle = document.querySelector('#video-title');
 const videoArtist = document.querySelector('#video-artist');
 const videoDate = document.querySelector('#video-date');
@@ -81,6 +149,18 @@ document.querySelectorAll('[data-youtube]').forEach(card => card.addEventListene
   videoTitle.textContent = selectedVideo.title;
   videoArtist.textContent = selectedVideo.artist;
   videoDate.textContent = selectedVideo.date;
-  youtubePlayer.title = `${compactTitle(selectedVideo.title)} YouTube動画プレイヤー`;
-  youtubePlayer.src = `./player.html?v=${encodeURIComponent(selectedVideo.id)}`;
+  resetVideo();
+  document.querySelector('#video-external').href = `https://www.youtube.com/watch?v=${encodeURIComponent(selectedVideo.id)}`;
 }));
+
+// Local files have no HTTP referrer, which YouTube requires for embedded playback.
+// Keep playback inside the website by opening its local HTTP preview in this tab.
+if (location.protocol === 'file:') {
+  location.replace('http://127.0.0.1:8873/#music');
+}
+const requestedVideo = new URLSearchParams(location.search).get('video');
+if (requestedVideo && /^[\w-]{11}$/.test(requestedVideo)) {
+  const requestedCard = [...document.querySelectorAll('[data-youtube]')]
+    .find(card => card.dataset.youtube === requestedVideo);
+  if (requestedCard) requestedCard.click();
+}

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260917-13">
+  <link rel="stylesheet" href="styles.css?v=20260917-17">
 </head>
 <body>
   <div class="stars" aria-hidden="true"></div>
@@ -20,9 +20,9 @@
     </a>
     <button class="menu" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav" aria-label="メインナビゲーション">
-      <a class="active" href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#works">WORKS</a><a href="#contact">CONTACT</a>
+      <a class="active" href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#contact">CONTACT</a>
     </nav>
-    <div class="social"><a href="#" aria-label="YouTube"><img src="assets/yt_icon_red_digital.png" alt=""></a><a href="#" aria-label="X"><img src="assets/x-logo-white.png" alt=""></a><a href="#" aria-label="TikTok"><img src="assets/tiktok-icon.png" alt=""></a></div>
+    <div class="social"><a href="https://www.youtube.com/@warabimochiSOUND" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><img src="assets/yt_icon_red_digital.png" alt=""></a><a href="https://x.com/warabimochi8bit" aria-label="X" target="_blank" rel="noopener noreferrer"><img src="assets/x-logo-white.png" alt=""></a><a href="https://www.tiktok.com/@warabimochi_sound?is_from_webapp=1&amp;sender_device=pc" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><img src="assets/tiktok-icon.png" alt=""></a></div>
   </header>
 
   <main id="top">
@@ -46,9 +46,12 @@
       <div class="section__head"><div><h2 style="font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace">LATEST VIDEO</h2><p>最新のアレンジ楽曲</p></div><a href="#works">VIEW ALL →</a></div>
       <div class="videos">
         <div class="featured-card">
-          <span class="featured-card__scene" id="player-scene"><iframe id="youtube-player" src="./player.html?v=hy6rHiXSAjw" title="ちゅきミー！｜月見パイもち子 YouTube動画プレイヤー" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></span>
+          <span class="featured-card__scene" id="player-scene">
+            <span id="youtube-host"></span>
+            <button id="video-start" type="button" aria-label="動画を再生"><img id="video-poster" src="https://i.ytimg.com/vi/hy6rHiXSAjw/hqdefault.jpg" alt="ちゅきミー！ 動画サムネイル"><span class="video-play-icon">▶</span><span id="video-status" aria-live="polite">クリックして再生</span></button>
+          </span>
         </div>
-        <span class="featured-card__meta"><b id="video-title">ちゅきミー！｜月見パイもち子【8bit アレンジ】</b><small id="video-artist">CV：齋藤樹愛羅（＝LOVE）</small><em id="video-date">2026.09.13</em></span>
+        <span class="featured-card__meta"><b id="video-title">ちゅきミー！｜月見パイもち子【8bit アレンジ】</b><small id="video-artist">CV：齋藤樹愛羅（＝LOVE）</small><em id="video-date">2026.09.13</em><a id="video-external" href="https://www.youtube.com/watch?v=hy6rHiXSAjw" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#00e5ff;margin-top:8px">YouTubeで再生 ↗</a></span>
         <div class="video-list">
           <button class="mini-card" type="button" data-youtube="3ne0tzKJ0O0" data-title="雲を抜け風下へ私だけ【8bit アレンジ】" data-artist="ヨルシカ｜薬屋のひとりごと 第3期 OP" data-date="2026.08.21"><span class="thumb"><img src="https://i.ytimg.com/vi/3ne0tzKJ0O0/mqdefault.jpg" alt="雲を抜け風下へ私だけ 動画サムネイル"><i>1:18</i></span><b><span>雲を抜け風下へ私だけ</span><span>ヨルシカ</span></b><small>2026.08.21</small></button>
           <button class="mini-card" type="button" data-youtube="5b-PBCK_UNg" data-title="星をみる少女【8bit アレンジ】" data-artist="星街すいせい｜hololive" data-date="2026.08.16"><span class="thumb"><img src="https://i.ytimg.com/vi/5b-PBCK_UNg/mqdefault.jpg" alt="星をみる少女 動画サムネイル"><i>1:37</i></span><b><span>星をみる少女</span><span>星街すいせい</span></b><small>2026.08.16</small></button>
@@ -58,7 +61,7 @@
     </section>
 
     <section class="section about" id="about">
-      <div class="about__text"><h2>ABOUT</h2><h3>わらびもちSOUNDについて</h3><p>ホロライブの楽曲を中心に、アニメ・ゲーム・VTuber楽曲などを8bitサウンドでアレンジする音楽クリエイターです。<br>3和音＋ノイズ1音＝最大4音でつくる、ゲームボーイ・ファミコン風のピコピコサウンドで、懐かしいのに新しい音楽をお届けします。<br>音で、日常にワクワクを。</p><a class="neon-button small" href="#contact">MORE　→</a></div>
+      <div class="about__text"><h2>PROFILE</h2><h3>わらびもちSOUNDについて</h3><p>ホロライブの楽曲を中心に、アニメ・ゲーム・VTuber楽曲などを8bitサウンドでアレンジする音楽クリエイターです。<br>3和音＋ノイズ1音＝最大4音でつくる、ゲームボーイ・ファミコン風のピコピコサウンドで、懐かしいのに新しい音楽をお届けします。<br>音で、日常にワクワクを。</p><a class="neon-button small" href="#contact">ABOUT　→</a></div>
       <div class="about__art"><div class="speech">LET'S<br>PLAY MUSIC<br>TOGETHER!</div><div class="mascot mascot--small"><div class="headphones">⌒</div><div class="face">•‿•</div></div><i>♫</i><i>♪</i></div>
     </section>
 
@@ -68,9 +71,9 @@
     </section>
   </main>
 
-  <footer id="contact"><div class="brand"><span class="brand__face">◉</span><span><strong>わらびもちSOUND</strong><small>8BIT ARRANGE / CHIPTUNE MUSIC</small></span></div><nav><a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#works">WORKS</a><a href="#contact">CONTACT</a></nav><div class="equalizer" aria-label="音楽イコライザー">▁▃▆▂▇▅▂▆▃▇▂</div><small>© 2024 わらびもちSOUND. All rights reserved.</small></footer>
+  <footer id="contact"><div class="brand"><span class="brand__face">◉</span><span><strong>わらびもちSOUND</strong><small>8BIT ARRANGE / CHIPTUNE MUSIC</small></span></div><nav><a href="#top">HOME</a><a href="#about">ABOUT</a><a href="#music">MUSIC</a><a href="#contact">CONTACT</a></nav><div class="equalizer" aria-label="音楽イコライザー">▁▃▆▂▇▅▂▆▃▇▂</div><small>© 2024 わらびもちSOUND. All rights reserved.</small></footer>
 
   <dialog id="player"><button class="close" aria-label="閉じる">×</button><span class="disc">♫</span><h2></h2><p>デモプレイヤー</p><div class="player-line"><i></i></div></dialog>
-  <script src="script.js?v=20260917-7"></script>
+  <script src="script.js?v=20260917-11"></script>
 </body>
 </html>
