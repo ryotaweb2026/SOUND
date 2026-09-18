@@ -49,7 +49,7 @@ function resetVideo() {
   videoHost.replaceChildren();
   videoStart.hidden = false;
   videoStart.disabled = false;
-  videoPoster.src = `https://i.ytimg.com/vi/${selectedVideo.id}/hqdefault.jpg`;
+  videoPoster.src = `https://i.ytimg.com/vi/${selectedVideo.id}/mqdefault.jpg`;
   videoPoster.alt = `${compactTitle(selectedVideo.title)} 動画サムネイル`;
   videoStatus.textContent = 'クリックして再生';
 }
