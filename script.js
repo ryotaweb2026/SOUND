@@ -49,6 +49,7 @@ function resetVideo() {
   videoHost.replaceChildren();
   videoStart.hidden = false;
   videoStart.disabled = false;
+  videoStatus.hidden = false;
   videoPoster.src = `https://i.ytimg.com/vi/${selectedVideo.id}/mqdefault.jpg`;
   videoPoster.alt = `${compactTitle(selectedVideo.title)} 動画サムネイル`;
   videoStatus.textContent = 'クリックして再生';
@@ -84,6 +85,7 @@ videoStart.addEventListener('click', async () => {
         if (generation !== loadGeneration) return;
         clearTimeout(loadTimer);
         videoStart.hidden = true;
+        videoStatus.hidden = true;
         event.target.playVideo();
       },
       onError: fail

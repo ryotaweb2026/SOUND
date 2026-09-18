@@ -38,7 +38,8 @@
 #video-start[hidden]{display:none}
 #video-start img{width:100%;height:100%;object-fit:contain}
 #video-start .video-play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#f03;border-radius:14px;padding:10px 25px;font-size:28px}
-#video-status{position:absolute;bottom:0;left:0;right:0;padding:12px;background:#00102be8;font-size:12px}
+#video-status{display:block;padding:8px 12px;background:#00102b;text-align:center;font-size:12px;border:1px solid #164577;border-top:0;border-radius:0 0 5px 5px}
+#video-status[hidden]{display:none}
 #video-start:focus-visible{outline:3px solid var(--cyan);outline-offset:-4px}
 .brand__face{display:block;width:44px;height:44px;object-fit:cover;border:2px solid var(--cyan);border-radius:10px;background:none;box-shadow:0 0 10px rgba(16,231,255,.7)}
 footer .brand__face{width:54px;height:54px;border-radius:12px}
