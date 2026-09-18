@@ -53,3 +53,4 @@ footer .equalizer{display:block;width:min(100%,390px);height:auto;justify-self:c
 .profile-mascot{display:block;width:min(82%,280px);height:auto;mix-blend-mode:screen;position:relative;z-index:1}
 @media(min-width:761px){.about__art{min-height:350px}.profile-mascot{align-self:end;transform:translateY(22px)}}
 @media(max-width:760px){.profile-mascot{width:min(74%,230px)}}
+.about__art>i:first-of-type{top:auto;bottom:78px;left:7%}
