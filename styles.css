@@ -47,6 +47,6 @@ footer{grid-template-columns:minmax(280px,1.2fr) auto minmax(180px,.8fr)}
 footer .brand{min-width:max-content;margin-right:0}
 footer .brand strong,footer .brand small,footer>small{white-space:nowrap}
 footer nav{gap:18px;white-space:nowrap}
-footer .equalizer{min-width:0;font-size:clamp(18px,2.2vw,28px);overflow:hidden}
+footer .equalizer{display:block;width:min(100%,390px);height:auto;justify-self:center;mix-blend-mode:screen}
 @media(min-width:761px){footer nav{grid-column:2/4;grid-row:1;justify-content:center;align-self:end}footer .equalizer{grid-column:2/4;grid-row:2;text-align:center;align-self:start;margin-top:-10px}}
 @media(max-width:760px){footer{grid-template-columns:1fr}footer .brand{min-width:0}footer .brand strong{font-size:14px}footer .brand small{font-size:7px}footer>small{font-size:8px}}
