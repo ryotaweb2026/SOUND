@@ -166,3 +166,50 @@ if (requestedVideo && /^[\w-]{11}$/.test(requestedVideo)) {
     .find(card => card.dataset.youtube === requestedVideo);
   if (requestedCard) requestedCard.click();
 }
+
+const profileAudio = document.querySelector('#profile-audio');
+const audioToggle = document.querySelector('#audio-toggle');
+const audioSeek = document.querySelector('#audio-seek');
+const audioCurrent = document.querySelector('#audio-current');
+const audioDuration = document.querySelector('#audio-duration');
+
+function formatAudioTime(seconds) {
+  if (!Number.isFinite(seconds)) return '--:--';
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${minutes}:${remainingSeconds}`;
+}
+
+function updateAudioProgress() {
+  const progress = profileAudio.duration ? profileAudio.currentTime / profileAudio.duration * 100 : 0;
+  audioSeek.value = String(progress);
+  audioSeek.style.setProperty('--audio-progress', `${progress}%`);
+  audioCurrent.textContent = formatAudioTime(profileAudio.currentTime);
+}
+
+profileAudio.addEventListener('loadedmetadata', () => {
+  audioDuration.textContent = formatAudioTime(profileAudio.duration);
+  updateAudioProgress();
+});
+profileAudio.addEventListener('timeupdate', updateAudioProgress);
+profileAudio.addEventListener('play', () => {
+  audioToggle.textContent = 'Ⅱ';
+  audioToggle.setAttribute('aria-label', '音源を一時停止');
+});
+profileAudio.addEventListener('pause', () => {
+  audioToggle.textContent = '▶';
+  audioToggle.setAttribute('aria-label', '音源を再生');
+});
+profileAudio.addEventListener('ended', () => {
+  profileAudio.currentTime = 0;
+  updateAudioProgress();
+});
+audioToggle.addEventListener('click', () => {
+  if (profileAudio.paused) profileAudio.play();
+  else profileAudio.pause();
+});
+audioSeek.addEventListener('input', () => {
+  if (!profileAudio.duration) return;
+  profileAudio.currentTime = Number(audioSeek.value) / 100 * profileAudio.duration;
+  updateAudioProgress();
+});
