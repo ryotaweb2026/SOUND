@@ -55,4 +55,4 @@ footer .equalizer{display:block;width:min(100%,390px);height:auto;justify-self:c
 @media(max-width:760px){.profile-mascot{width:min(74%,230px)}}
 .about__art>i:first-of-type{top:auto;bottom:78px;left:7%}
 .hero-social{display:none}
-@media(max-width:760px){.hero-social{order:5;display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;position:relative;z-index:5}.hero-social a{display:grid;place-items:center;width:34px;height:34px;overflow:hidden}.hero-social img{display:block;width:27px;height:27px;object-fit:contain}.hero-social a:first-child img{width:50px;height:auto;max-width:none}.hero-social a:last-child img{width:32px;height:32px}}
+@media(max-width:760px){.hero-social{order:5;display:flex;align-items:center;justify-content:center;gap:24px;margin-top:18px;position:relative;z-index:5}.hero-social a{display:grid;place-items:center;width:34px;height:34px;overflow:hidden}.hero-social img{display:block;width:27px;height:27px;object-fit:contain}.hero-social a:first-child{width:42px;height:36px}.hero-social a:first-child img{width:52px;height:auto;max-width:none}.hero-social a:last-child img{width:32px;height:32px}}
