@@ -172,6 +172,8 @@ const audioToggle = document.querySelector('#audio-toggle');
 const audioSeek = document.querySelector('#audio-seek');
 const audioCurrent = document.querySelector('#audio-current');
 const audioDuration = document.querySelector('#audio-duration');
+let audioObjectUrl;
+let audioSeekActive = false;
 
 function formatAudioTime(seconds) {
   if (!Number.isFinite(seconds)) return '--:--';
@@ -181,6 +183,7 @@ function formatAudioTime(seconds) {
 }
 
 function updateAudioProgress() {
+  if (audioSeekActive) return;
   const progress = profileAudio.duration ? profileAudio.currentTime / profileAudio.duration * 100 : 0;
   audioSeek.value = String(progress);
   audioSeek.style.setProperty('--audio-progress', `${progress}%`);
@@ -189,6 +192,8 @@ function updateAudioProgress() {
 
 profileAudio.addEventListener('loadedmetadata', () => {
   audioDuration.textContent = formatAudioTime(profileAudio.duration);
+  audioToggle.disabled = false;
+  audioSeek.disabled = false;
   updateAudioProgress();
 });
 profileAudio.addEventListener('timeupdate', updateAudioProgress);
@@ -210,6 +215,39 @@ audioToggle.addEventListener('click', () => {
 });
 audioSeek.addEventListener('input', () => {
   if (!profileAudio.duration) return;
-  profileAudio.currentTime = Number(audioSeek.value) / 100 * profileAudio.duration;
+  const nextTime = Number(audioSeek.value) / 100 * profileAudio.duration;
+  profileAudio.currentTime = nextTime;
+  audioCurrent.textContent = formatAudioTime(nextTime);
+  audioSeek.style.setProperty('--audio-progress', `${audioSeek.value}%`);
+});
+audioSeek.addEventListener('pointerdown', () => { audioSeekActive = true; });
+audioSeek.addEventListener('pointerup', () => {
+  audioSeekActive = false;
+  if (profileAudio.duration) profileAudio.currentTime = Number(audioSeek.value) / 100 * profileAudio.duration;
   updateAudioProgress();
+});
+audioSeek.addEventListener('change', () => {
+  audioSeekActive = false;
+  if (profileAudio.duration) profileAudio.currentTime = Number(audioSeek.value) / 100 * profileAudio.duration;
+  updateAudioProgress();
+});
+
+async function prepareProfileAudio() {
+  const source = profileAudio.dataset.src;
+  try {
+    const response = await fetch(source);
+    if (!response.ok) throw new Error(`音源の読み込みに失敗しました (${response.status})`);
+    const audioData = await response.arrayBuffer();
+    audioObjectUrl = URL.createObjectURL(new Blob([audioData], { type: 'audio/mpeg' }));
+    profileAudio.src = audioObjectUrl;
+  } catch (error) {
+    console.warn(error.message);
+    profileAudio.src = source;
+  }
+  profileAudio.load();
+}
+
+prepareProfileAudio();
+window.addEventListener('pagehide', () => {
+  if (audioObjectUrl) URL.revokeObjectURL(audioObjectUrl);
 });

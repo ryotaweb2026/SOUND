@@ -66,6 +66,7 @@ footer .equalizer{display:block;width:min(100%,390px);height:auto;justify-self:c
 .profile-audio{display:flex;align-items:center;gap:14px;width:min(100%,470px);margin-top:22px;padding:12px 14px;border:1px solid #167396;background:#03152dcc;box-shadow:inset 0 0 14px #082748}
 .profile-audio>button{flex:0 0 42px;width:42px;height:42px;border:1px solid var(--cyan);border-radius:50%;background:#00182e;color:var(--cyan);cursor:pointer;font-size:16px;box-shadow:0 0 8px #00d9ff66}
 .profile-audio>button:hover,.profile-audio>button:focus-visible{background:var(--cyan);color:#001025;outline:none}
+.profile-audio>button:disabled,#audio-seek:disabled{cursor:wait;opacity:.45}
 .profile-audio__body{display:grid;gap:7px;min-width:0;flex:1}.profile-audio__body strong{font:12px ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;color:#d8faff;letter-spacing:.12em}
 #audio-seek{--audio-progress:0%;width:100%;height:4px;margin:0;appearance:none;border-radius:4px;background:linear-gradient(90deg,var(--cyan) var(--audio-progress),#23415d var(--audio-progress));cursor:pointer}
 #audio-seek::-webkit-slider-thumb{appearance:none;width:13px;height:13px;border:2px solid #00182e;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
